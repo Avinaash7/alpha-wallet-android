@@ -10,6 +10,8 @@ import java.util.Map;
 public abstract class EthereumNetworkBase
 { // implements EthereumNetworkRepositoryType
     public static final long MAINNET_ID = 1;
+
+    public static final long FILE_MAINNET = 314;
     public static final long CLASSIC_ID = 61;
     public static final long GNOSIS_ID = 100;
     public static final long GOERLI_ID = 5;
@@ -48,6 +50,8 @@ public abstract class EthereumNetworkBase
 
 
     public static final String MAINNET_RPC_URL = "https://mainnet.infura.io/v3/da3717f25f824cc1baa32d812386d93f";
+
+    public static final String FILE_RPC_URL = "https://api.node.glif.io/rpc/v1";
     public static final String CLASSIC_RPC_URL = "https://www.ethercluster.com/etc";
     public static final String XDAI_RPC_URL = "https://rpc.gnosischain.com";
     public static final String GOERLI_RPC_URL = "https://goerli.infura.io/v3/da3717f25f824cc1baa32d812386d93f";
@@ -90,6 +94,8 @@ public abstract class EthereumNetworkBase
         {
             put(MAINNET_ID, new NetworkInfo("Ethereum", "ETH", MAINNET_RPC_URL, "https://etherscan.io/tx/",
                     MAINNET_ID, false));
+            put(FILE_MAINNET, new NetworkInfo("Filecoin", "FIL", FILE_RPC_URL, "https://filscan.io/en/message/",
+                    FILE_MAINNET, false));
             put(CLASSIC_ID, new NetworkInfo("Ethereum Classic", "ETC", CLASSIC_RPC_URL, "https://blockscout.com/etc/mainnet/tx/",
                     CLASSIC_ID, false));
             put(GNOSIS_ID, new NetworkInfo("Gnosis", "xDAi", XDAI_RPC_URL, "https://blockscout.com/xdai/mainnet/tx/",

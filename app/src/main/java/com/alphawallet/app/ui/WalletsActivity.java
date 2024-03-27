@@ -257,12 +257,10 @@ public class WalletsActivity extends BaseActivity implements
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         preFinish();
         // User can't start work without wallet.
-        if (adapter.getItemCount() == 0)
-        {
+        if (adapter.getItemCount() == 0) {
             System.exit(0);
         }
     }

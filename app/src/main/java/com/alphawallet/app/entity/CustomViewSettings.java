@@ -15,11 +15,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+
+import static com.alphawallet.ethereum.EthereumNetworkBase.FILE_MAINNET;
 import static com.alphawallet.ethereum.EthereumNetworkBase.MAINNET_ID;
 
 public class CustomViewSettings
 {
-    public static final long primaryChain = MAINNET_ID;
+    public static final long primaryChain = FILE_MAINNET;
     private static final String primaryChainName = C.ETHEREUM_NETWORK_NAME;
 
     //You can use the settings in this file to customise the wallet appearance
@@ -33,8 +35,15 @@ public class CustomViewSettings
     //If you leave the locked chains empty, the token will appear if the chain is selected
     private static final List<TokenInfo> lockedTokens = Arrays.asList(
             // new TokenInfo(String TokenAddress, String TokenName, String TokenSymbol, int TokenDecimals, boolean isEnabled, long ChainId)
-            //new TokenInfo("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", "USD Coin", "USDC", 6, true, EthereumNetworkBase.MAINNET_ID),
-            //new TokenInfo("0x6C8c6b02E7b2BE14d4fA6022Dfd6d75921D90E4E", "Compound BAT", "CBAT", 8, true, EthereumNetworkBase.MAINNET_ID)
+            new TokenInfo("0x79AbfF86426723ff5A81710E310c7035C2C32E9F", "OrbitVault", "OV", 9, true, EthereumNetworkBase.FILE_MAINNET),
+            new TokenInfo("0x10B97b19fabC54a95959Aa462e5b37518399c080", "CORGI", "CORGI", 9, true, EthereumNetworkBase.FILE_MAINNET),
+            new TokenInfo("0x5f4a110044feaeb1908d2bb69c82c5e8acdebe25", "FilePEPE", "FPEPE", 6, true, EthereumNetworkBase.FILE_MAINNET),
+            new TokenInfo("0xc396f2266dAE4A1C75cF96a51C0E5824Aec6f947", "FileElon", "FElon", 6, true, EthereumNetworkBase.FILE_MAINNET),
+            new TokenInfo("0xc3f11c20c6cbe40089a428f0c9559adf42dedece", "FileZilla", "FZilla", 18, true, EthereumNetworkBase.FILE_MAINNET),
+            new TokenInfo("0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", "USD Coin", "USDC", 6, true, EthereumNetworkBase.MAINNET_ID),
+            new TokenInfo("0x6C8c6b02E7b2BE14d4fA6022Dfd6d75921D90E4E", "Compound BAT", "CBAT", 8, true, EthereumNetworkBase.MAINNET_ID)
+
+
     );
 
     //List of chains that wallet can show
@@ -47,7 +56,9 @@ public class CustomViewSettings
     );
 
     public static final List<Long> alwaysVisibleChains = Arrays.asList(
-            EthereumNetworkBase.MAINNET_ID
+            EthereumNetworkBase.FILE_MAINNET,
+            MAINNET_ID,
+            EthereumNetworkBase.BINANCE_MAIN_ID
     );
 
     public static boolean alwaysShow(long chainId)

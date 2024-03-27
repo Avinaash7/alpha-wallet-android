@@ -52,7 +52,7 @@ public class SwapProviderAdapter extends RecyclerView.Adapter<SwapProviderAdapte
 
             Glide.with(context)
                     .load(item.logoURI)
-                    .placeholder(R.drawable.ic_logo)
+                    .placeholder(R.drawable.orbitlogo)
                     .circleCrop()
                     .into(new DrawableImageViewTarget(holder.icon));
 

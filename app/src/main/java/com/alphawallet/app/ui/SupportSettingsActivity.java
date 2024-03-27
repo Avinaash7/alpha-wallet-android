@@ -71,17 +71,17 @@ public class SupportSettingsActivity extends BaseActivity
                 .withListener(this::onTelegramClicked)
                 .build();
 
-        discord = new SettingsItemView.Builder(this)
-                .withIcon(R.drawable.ic_logo_discord)
-                .withTitle(R.string.discord)
-                .withListener(this::onDiscordClicked)
-                .build();
-
-        email = new SettingsItemView.Builder(this)
-                .withIcon(R.drawable.ic_email)
-                .withTitle(R.string.email)
-                .withListener(this::onEmailClicked)
-                .build();
+//        discord = new SettingsItemView.Builder(this)
+//                .withIcon(R.drawable.ic_logo_discord)
+//                .withTitle(R.string.discord)
+//                .withListener(this::onDiscordClicked)
+//                .build();
+//
+//        email = new SettingsItemView.Builder(this)
+//                .withIcon(R.drawable.ic_email)
+//                .withTitle(R.string.email)
+//                .withListener(this::onEmailClicked)
+//                .build();
 
         twitter = new SettingsItemView.Builder(this)
                 .withIcon(R.drawable.ic_logo_twitter)
@@ -128,25 +128,25 @@ public class SupportSettingsActivity extends BaseActivity
             supportSettingsLayout.addView(telegram);
         }
 
-        if (MediaLinks.AWALLET_DISCORD_URL != null)
-        {
-            supportSettingsLayout.addView(discord);
-        }
+//        if (MediaLinks.AWALLET_DISCORD_URL != null)
+//        {
+//            supportSettingsLayout.addView(discord);
+//        }
 
-        if (MediaLinks.AWALLET_EMAIL1 != null)
-        {
-            supportSettingsLayout.addView(email);
-        }
+//        if (MediaLinks.AWALLET_EMAIL1 != null)
+//        {
+//            supportSettingsLayout.addView(email);
+//        }
 
         if (MediaLinks.AWALLET_TWITTER_URL != null)
         {
             supportSettingsLayout.addView(twitter);
         }
 
-        if (MediaLinks.AWALLET_GITHUB != null)
-        {
-            supportSettingsLayout.addView(github);
-        }
+//        if (MediaLinks.AWALLET_GITHUB != null)
+//        {
+//            supportSettingsLayout.addView(github);
+//        }
 
         /*if (MediaLinks.AWALLET_REDDIT_URL != null) {
             supportSettingsLayout.addView(reddit);

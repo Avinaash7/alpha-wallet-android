@@ -32,10 +32,10 @@
 
             <ImageView
                 android:id="@+id/img_no_active_sessions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_icons_no_transactions" />
+                android:src="@drawable/orbitlogo3" />
 
             <TextView
                 android:id="@+id/no_active_sessions_subtext"

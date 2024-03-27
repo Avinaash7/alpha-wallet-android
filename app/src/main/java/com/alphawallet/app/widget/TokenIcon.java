@@ -2,6 +2,7 @@ package com.alphawallet.app.widget;
 
 import static androidx.core.content.ContextCompat.getColorStateList;
 import static com.alphawallet.app.util.Utils.ALPHAWALLET_REPO_NAME;
+
 import static com.alphawallet.app.util.Utils.TRUST_ICON_REPO_BASE;
 import static com.alphawallet.ethereum.EthereumNetworkBase.MAINNET_ID;
 

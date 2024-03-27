@@ -21,11 +21,54 @@
     DO NOT USE `@color/text_primary`
     INSTEAD USE ?android:textColorPrimary`
 
+
+
+
     -->
     <!-- ?colorPrimary -->
+
+    <color name="colorEndGrad">#167A1C</color>
+    <color name="colorStartGrad">#eda419</color>
+
+    <color name="colorEndGradBG">#E2BAC8</color>
+    <color name="colorStartGradBG">#D8F8DA</color>
+
+    <color name="colorPrimary">#388e3c</color>
+
+
+    <color name="colorTrans">#0b94ff</color>
+    <color name="colorAccent">#000080</color>
+
+    <color name="textColor">#212121</color>
+    <color name="textColorHead">#777777</color>
+    <color name="colorHeadingColor">#000080</color>
+
+    <color name="colorBackground">#171717</color>
+    <color name="colorPomegranate">#C0392B</color>
+
+    <color name="colorIcon">#C0392B</color>
+    <color name="colorItemName">#2E4B59</color>
+    <color name="colorItemDetailBackground">#90A6B4</color>
+
+    <color name="orderAccepted">#BEEC85</color>
+    <color name="orderRejected">#F398BB</color>
+
+
+    <!-- colors for button style -->
+
+    <color name="gradient_start_color">#4c84ff</color>
+    <color name="gradient_end_color">#18a3fe</color>
+
+
+    <!-- colors for tab and screent text -->
+
+    <color name="tab_indicator_gray">#c0c0c0</color>
+    <color name="intro_title_color">#000000</color>
+    <color name="intro_description_color">#656565</color>
+
     <color name="brand">@color/azure</color>
     <!-- ?colorOnPrimary -->
-    <color name="brand_inverse">@color/white</color>
+    <color name="brand_inverse">@color/green</color>
     <!-- ?colorAccent -->
     <color name="accent">@color/brand</color>
     <!-- ?colorError -->
@@ -63,7 +106,7 @@
     <!-- ?android:textColorPrimaryInverse -->
     <color name="text_primary_inverse">@color/white</color>
     <!-- ?android:textColorScondaryInverse -->
-    <color name="text_secondary">@color/dove</color>
+    <color name="text_secondary">@color/green</color>
     <!-- ?android:textColorSecondary -->
     <color name="text_secondary_inverse">@color/white</color>
     <color name="active_session_card_background">@color/solitude</color>

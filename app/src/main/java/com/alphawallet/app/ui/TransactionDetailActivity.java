@@ -7,6 +7,7 @@ import static com.alphawallet.ethereum.EthereumNetworkBase.MAINNET_ID;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -254,6 +255,7 @@ public class TransactionDetailActivity extends BaseActivity implements StandardF
         if (latestTx.isPending())
         {
             long pendingTimeInSeconds = (System.currentTimeMillis() / 1000) - latestTx.timeStamp;
+            Log.i("AvinaashBlock",transaction.blockNumber);
             blockNumberTxt.setText(getString(R.string.transaction_pending_for, Utils.convertTimePeriodInSeconds(pendingTimeInSeconds, this)));
         }
         else

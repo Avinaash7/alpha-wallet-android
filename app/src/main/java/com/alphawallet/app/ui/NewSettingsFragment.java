@@ -259,14 +259,14 @@ public class NewSettingsFragment extends BaseFragment
 
         myAddressSetting =
                 new SettingsItemView.Builder(getContext())
-                        .withIcon(R.drawable.ic_settings_wallet_address)
+                        .withIcon(R.drawable.icon_verification1)
                         .withTitle(R.string.title_show_wallet_address)
                         .withListener(this::onShowWalletAddressSettingClicked)
                         .build();
 
         changeWalletSetting =
                 new SettingsItemView.Builder(getContext())
-                        .withIcon(R.drawable.ic_settings_change_wallet)
+                        .withIcon(R.drawable.icon_deposit1)
                         .withTitle(R.string.title_change_add_wallet)
                         .withListener(this::onChangeWalletSettingClicked)
                         .build();
@@ -316,13 +316,13 @@ public class NewSettingsFragment extends BaseFragment
                 .withListener(this::onChangeCurrencyClicked)
                 .build();
 
-//        biometricsSetting =
-//                new SettingsItemView.Builder(getContext())
-//                        .withType(SettingsItemView.Type.TOGGLE)
-//                        .withIcon(R.drawable.ic_settings_biometrics)
-//                        .withTitle(R.string.title_biometrics)
-//                        .withListener(this::onBiometricsSettingClicked)
-//                        .build();
+        biometricsSetting =
+                new SettingsItemView.Builder(getContext())
+                        .withType(SettingsItemView.Type.TOGGLE)
+                        .withIcon(R.drawable.ic_settings_biometrics)
+                        .withTitle(R.string.title_biometrics)
+                        .withListener(this::onBiometricsSettingClicked)
+                        .build();
 
         selectNetworksSetting =
                 new SettingsItemView.Builder(getContext())
@@ -373,7 +373,7 @@ public class NewSettingsFragment extends BaseFragment
 
         walletSettingsLayout.addView(walletConnectSetting, walletIndex++);
 
-        if (CustomViewSettings.getLockedChains().size() == 0)
+        if (CustomViewSettings.getLockedChains().isEmpty())
             systemSettingsLayout.addView(selectNetworksSetting, systemIndex++);
 
         if (biometricsSetting != null)
@@ -387,7 +387,7 @@ public class NewSettingsFragment extends BaseFragment
 
         systemSettingsLayout.addView(darkModeSetting, systemIndex++);
 
-        systemSettingsLayout.addView(advancedSetting, systemIndex++);
+        //systemSettingsLayout.addView(advancedSetting, systemIndex++);
 
         supportSettingsLayout.addView(supportSetting, supportIndex++);
     }

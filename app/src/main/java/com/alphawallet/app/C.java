@@ -22,6 +22,8 @@ public abstract class C {
     public static final int STANDARD_POPUP_INACTIVITY_DISMISS = 15*1000; //Standard dismiss after 15 seconds
 
     public static final String ETHEREUM_NETWORK_NAME = "Ethereum";
+
+    public static final String FILE_NETWORK_NAME = "Filecoin";
     public static final String CLASSIC_NETWORK_NAME = "Ethereum Classic";
     public static final String XDAI_NETWORK_NAME = "Gnosis";
     public static final String GOERLI_NETWORK_NAME = "Görli (Test)";
@@ -67,6 +69,8 @@ public abstract class C {
 
     public static final String USD_SYMBOL = "$";
     public static final String ETH_SYMBOL = "ETH";
+
+    public static final String FILE_SYMBOL = "FIL";
     public static final String xDAI_SYMBOL = "xDai";
     public static final String ETC_SYMBOL = "ETC";
     public static final String GOERLI_SYMBOL = "GÖETH";
@@ -224,7 +228,7 @@ public abstract class C {
     public static final long GAS_LIMIT_CONTRACT = 1000000L;
     public static final long GAS_PRICE_MIN = 400000000L;
     public static final int ETHER_DECIMALS = 18;
-    public static final long GAS_LIMIT_MAX =          4712380L;  //Max block gas for most chains
+    public static final long GAS_LIMIT_MAX = 4712380L;  //Max block gas for most chains
     public static final long GAS_LIMIT_MAX_KLAYTN = 100000000L;  //Klaytn gas limit, see https://docs.klaytn.com/klaytn/design/computation/computation-cost
     public static final long GAS_LIMIT_MAX_AURORA = 6721975L;
 

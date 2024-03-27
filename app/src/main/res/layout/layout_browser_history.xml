@@ -11,12 +11,12 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="25dp"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/orbitlogo3" />
 
         <TextView
             style="@style/Aw.Typography.Title.SemiBold"

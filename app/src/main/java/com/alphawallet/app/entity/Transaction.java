@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alphawallet.app.R;
 import com.alphawallet.app.entity.tokens.Token;
@@ -87,8 +88,13 @@ public class Transaction implements Parcelable
     }
 
     public boolean isPending()
-    {
-        return TextUtils.isEmpty(blockNumber) || blockNumber.equals("0") || blockNumber.equals("-2");
+    {   if(chainId == 314) {
+        return false ;
+    }
+    else {
+        return TextUtils.isEmpty(blockNumber) || blockNumber.equals("0") || blockNumber.equals("-2") ;
+    }
+
     }
 
     public boolean hasError()
@@ -227,6 +233,8 @@ public class Transaction implements Parcelable
         this.maxFeePerGas = ethTx.getMaxFeePerGas().toString();
         this.maxPriorityFee = ethTx.getMaxPriorityFeePerGas().toString();
         this.functionName = "";
+
+
     }
 
     public Transaction(String hash, String isError, String blockNumber, long timeStamp, int nonce, String from, String to,

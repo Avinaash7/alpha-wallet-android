@@ -3,6 +3,7 @@ package com.alphawallet.app.repository;
 import static com.alphawallet.app.repository.TokenRepository.getWeb3jService;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 
 import com.alphawallet.app.entity.ActivityMeta;
@@ -10,6 +11,7 @@ import com.alphawallet.app.entity.Transaction;
 import com.alphawallet.app.entity.Wallet;
 import com.alphawallet.app.repository.entity.RealmAuxData;
 import com.alphawallet.app.service.AccountKeystoreService;
+import com.alphawallet.app.service.BlockNativeGasAPI;
 import com.alphawallet.app.service.TransactionsService;
 import com.alphawallet.app.web3.entity.Web3Transaction;
 import com.alphawallet.hardware.SignatureFromKey;
@@ -78,7 +80,12 @@ public class TransactionRepository implements TransactionRepositoryType
     @Override
     public RawTransaction formatRawTransaction(Web3Transaction w3Tx, long nonce, long chainId)
     {
-        if (w3Tx.isLegacyTransaction())
+        if (chainId == 314) {
+
+            return formatRawTransaction(w3Tx.getTransactionDestination().toString(), chainId, w3Tx.value, BigInteger.valueOf(160000000), BigInteger.valueOf(93353517),
+                    BigInteger.valueOf(93353517), nonce, !TextUtils.isEmpty(w3Tx.payload) ? Numeric.hexStringToByteArray(w3Tx.payload) : new byte[0], w3Tx.isConstructor());
+        }
+        else if (w3Tx.isLegacyTransaction())
         {
             return formatRawTransaction(w3Tx.getTransactionDestination().toString(), w3Tx.value, w3Tx.gasPrice, w3Tx.gasLimit, nonce,
                     !TextUtils.isEmpty(w3Tx.payload) ? Numeric.hexStringToByteArray(w3Tx.payload) : new byte[0], w3Tx.isConstructor());
@@ -144,10 +151,23 @@ public class TransactionRepository implements TransactionRepositoryType
 
     private Single<String> storeUnconfirmedTransaction(Wallet from, String txHash, ITransaction itx, long chainId, String contractAddr)
     {
+
         return Single.fromCallable(() -> {
             Transaction newTx;
-            if (itx instanceof Transaction1559)
+
+            if (chainId == 314){
+                Log.i("AvinaashUn","1");
+                Log.i("AvinaashMaxFeePerGasqa",((Transaction1559) itx).getMaxFeePerGas().toString(10));
+                Log.i("AvinaashMaxPriorityFeePerGas",((Transaction1559) itx).getMaxPriorityFeePerGas().toString(10));
+                Log.i("AvinaashGasLimit",itx.getGasLimit().toString(10));
+                newTx = new Transaction(txHash, "0", "0", System.currentTimeMillis() / 1000, itx.getNonce().intValue(), from.address,
+                        itx.getTo(), itx.getValue().toString(10), "0", "0", ((Transaction1559) itx).getMaxFeePerGas().toString(10),
+                        ((Transaction1559) itx).getMaxPriorityFeePerGas().toString(10), itx.getData(),
+                        itx.getGasLimit().toString(10), chainId, contractAddr);
+            }
+            else if (itx instanceof Transaction1559)
             {
+
                 newTx = new Transaction(txHash, "0", "0", System.currentTimeMillis() / 1000, itx.getNonce().intValue(), from.address,
                         itx.getTo(), itx.getValue().toString(10), "0", "0", ((Transaction1559) itx).getMaxFeePerGas().toString(10),
                         ((Transaction1559) itx).getMaxPriorityFeePerGas().toString(10), itx.getData(),
@@ -155,6 +175,7 @@ public class TransactionRepository implements TransactionRepositoryType
             }
             else
             {
+
                 newTx = new Transaction(txHash, "0", "0", System.currentTimeMillis() / 1000, itx.getNonce().intValue(), from.address,
                         itx.getTo(), itx.getValue().toString(10), "0", itx.getGasPrice().toString(10), itx.getData(),
                         itx.getGasLimit().toString(10), chainId, contractAddr, ""); //TODO: Function Name
@@ -170,6 +191,7 @@ public class TransactionRepository implements TransactionRepositoryType
     private Single<String> storeUnconfirmedTransaction(Wallet from, String txHash, String toAddress, BigInteger value, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit,
                                                        long chainId, String data)
     {
+        Log.i("AvinaashUn","4");
         return Single.fromCallable(() -> {
 
             Transaction newTx = new Transaction(txHash, "0", "0", System.currentTimeMillis() / 1000, nonce.intValue(), from.address,

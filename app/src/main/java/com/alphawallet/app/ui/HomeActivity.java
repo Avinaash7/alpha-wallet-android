@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -161,8 +162,10 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
         switch (event)
         {
             case ON_CREATE:
+                Log.i("Avicute","On Create");
                 break;
             case ON_START:
+                Log.i("Avicute","On Start");
                 Timber.tag("LIFE").d("AlphaWallet into foreground");
                 handler.postDelayed(() -> {
                     if (viewModel != null)
@@ -172,16 +175,20 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
                 isForeground = true;
                 break;
             case ON_RESUME:
+                Log.i("Avicute","On Resume");
                 break;
             case ON_PAUSE:
+                Log.i("Avicute","On Pause");
                 break;
             case ON_STOP:
+                Log.i("Avicute","On Stop");
                 Timber.tag("LIFE").d("AlphaWallet into background");
                 if (viewModel != null && !tokenClicked) viewModel.stopTransactionUpdate();
                 if (viewModel != null) viewModel.outOfFocus();
                 isForeground = false;
                 break;
             case ON_DESTROY:
+                Log.i("Avicute","On des");
                 break;
             case ON_ANY:
                 break;
@@ -293,7 +300,7 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
                 });
 
         viewModel.tryToShowRateAppDialog(this);
-        viewModel.tryToShowEmailPrompt(this, successOverlay, handler, this);
+//        viewModel.tryToShowEmailPrompt(this, successOverlay, handler, this);
 
         if (Utils.verifyInstallerId(this))
         {

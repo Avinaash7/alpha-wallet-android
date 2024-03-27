@@ -25,6 +25,7 @@ import static com.alphawallet.ethereum.EthereumNetworkBase.FANTOM_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.FANTOM_RPC_URL;
 import static com.alphawallet.ethereum.EthereumNetworkBase.FANTOM_TEST_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.FANTOM_TEST_RPC_URL;
+import static com.alphawallet.ethereum.EthereumNetworkBase.FILE_MAINNET;
 import static com.alphawallet.ethereum.EthereumNetworkBase.FUJI_TEST_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.FUJI_TEST_RPC_URL;
 import static com.alphawallet.ethereum.EthereumNetworkBase.GNOSIS_ID;
@@ -129,6 +130,10 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
     public static final String FREE_PALM_RPC_URL = "https://palm-mainnet.infura.io/v3/3a961d6501e54add9a41aa53f15de99b";
     public static final String FREE_PALM_TEST_RPC_URL = "https://palm-testnet.infura.io/v3/3a961d6501e54add9a41aa53f15de99b";
     public static final String FREE_CRONOS_MAIN_BETA_RPC_URL = "https://evm.cronos.org";
+    public static final String FREE_FILE_RPC_URL = "https://node.filutils.com/rpc/v1";
+
+    public static final String FILE_RPC_URL = usesProductionKey ? "https://314.rpc.thirdweb.com"
+            : FREE_FILE_RPC_URL;
 
     public static final String MAINNET_RPC_URL = usesProductionKey ? "https://mainnet.infura.io/v3/" + keyProvider.getInfuraKey()
             : FREE_MAINNET_RPC_URL;
@@ -188,7 +193,7 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
     //If your wallet prioritises xDai for example, you may want to move the XDAI_ID to the front of this list,
     //Then xDai would appear as the first token at the top of the wallet
     private static final List<Long> hasValue = new ArrayList<>(Arrays.asList(
-            MAINNET_ID, GNOSIS_ID, POLYGON_ID, ROOTSTOCK_MAINNET_ID, CLASSIC_ID, LINEA_ID, BINANCE_MAIN_ID, HECO_ID, AVALANCHE_ID,
+            FILE_MAINNET,MAINNET_ID,GNOSIS_ID, POLYGON_ID, ROOTSTOCK_MAINNET_ID, CLASSIC_ID, LINEA_ID, BINANCE_MAIN_ID, HECO_ID, AVALANCHE_ID,
             FANTOM_ID, OPTIMISTIC_MAIN_ID, CRONOS_MAIN_ID, ARBITRUM_MAIN_ID, PALM_ID, KLAYTN_ID, IOTEX_MAINNET_ID, AURORA_MAINNET_ID, MILKOMEDA_C1_ID, OKX_ID));
 
     private static final List<Long> testnetList = new ArrayList<>(Arrays.asList(
@@ -212,6 +217,10 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
     private static final LongSparseArray<NetworkInfo> builtinNetworkMap = new LongSparseArray<NetworkInfo>()
     {
         {
+            put(FILE_MAINNET, new NetworkInfo(C.FILE_NETWORK_NAME, C.FILE_SYMBOL,
+                    FILE_RPC_URL,
+                    "https://filscan.io/en/message/", FILE_MAINNET,
+                    "https://rpc.ankr.com/filecoin", "https://api.node.glif.io/rpc/v1/"));
             put(MAINNET_ID, new NetworkInfo(C.ETHEREUM_NETWORK_NAME, C.ETH_SYMBOL,
                     MAINNET_RPC_URL,
                     "https://cn.etherscan.com/tx/", MAINNET_ID,
@@ -368,6 +377,7 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
     {
         {
             put(MAINNET_ID, R.drawable.ic_token_eth);
+            put(FILE_MAINNET, R.drawable.filecoin);
             put(CLASSIC_ID, R.drawable.ic_icons_network_etc); //classic_logo
             put(GNOSIS_ID, R.drawable.ic_icons_network_gnosis);
             put(GOERLI_ID, R.drawable.ic_goerli);
@@ -411,6 +421,7 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
         {
             put(MAINNET_ID, R.drawable.ic_icons_network_eth);
             put(CLASSIC_ID, R.drawable.ic_icons_network_etc);
+            put(FILE_MAINNET, R.drawable.filecoin);
             put(GNOSIS_ID, R.drawable.ic_icons_network_gnosis);
             put(GOERLI_ID, R.drawable.ic_goerli);
             put(BINANCE_MAIN_ID, R.drawable.ic_icons_network_bsc);
@@ -452,6 +463,7 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
     {
         {
             put(MAINNET_ID, R.color.mainnet);
+            put(FILE_MAINNET, R.color.binance_main);
             put(CLASSIC_ID, R.color.classic);
             put(GNOSIS_ID, R.color.xdai);
             put(GOERLI_ID, R.color.goerli);
@@ -1054,8 +1066,12 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
     }
 
     public static BigInteger getMaxGasLimit(long chainId)
-    {
+    {   if (chainId == 314) {
+        return blockGasLimit.get(chainId, blockGasLimit.get(FILE_MAINNET));
+    } else{
         return blockGasLimit.get(chainId, blockGasLimit.get(MAINNET_ID));
+    }
+
     }
 
     public static String getNodeURLByNetworkId(long networkId)

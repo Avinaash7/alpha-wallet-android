@@ -8,6 +8,7 @@ import static com.alphawallet.ethereum.EthereumNetworkBase.BINANCE_MAIN_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.CLASSIC_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.CRONOS_MAIN_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.FANTOM_ID;
+import static com.alphawallet.ethereum.EthereumNetworkBase.FILE_MAINNET;
 import static com.alphawallet.ethereum.EthereumNetworkBase.GNOSIS_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.HECO_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.IOTEX_MAINNET_ID;
@@ -786,6 +787,7 @@ public class TickerService
     public static final Map<Long, String> coinGeckoChainIdToAPIName = new HashMap<>()
     {{
         put(MAINNET_ID, "ethereum");
+        put(FILE_MAINNET,"filecoin");
         put(GNOSIS_ID, "xdai");
         put(BINANCE_MAIN_ID, "binance-smart-chain");
         put(POLYGON_ID, "polygon-pos");
@@ -827,6 +829,7 @@ public class TickerService
     public static final Map<Long, String> chainPairs = new HashMap<>()
     {{
         put(MAINNET_ID, "ethereum");
+        put(FILE_MAINNET,"filecoin");
         put(CLASSIC_ID, "ethereum-classic");
         put(GNOSIS_ID, "xdai");
         put(BINANCE_MAIN_ID, "binancecoin");

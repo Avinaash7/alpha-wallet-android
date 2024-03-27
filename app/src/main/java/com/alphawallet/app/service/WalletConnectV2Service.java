@@ -43,7 +43,7 @@ public class WalletConnectV2Service extends Service
         Intent intent = new Intent(getApplicationContext(), WalletConnectNotificationActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_logo)
+                .setSmallIcon(R.drawable.baseline_notifications_24)
                 .setOnlyAlertOnce(true)
                 .setContentTitle(getString(R.string.notify_wallet_connect_title))
                 .setContentText(getString(R.string.notify_wallet_connect_content))

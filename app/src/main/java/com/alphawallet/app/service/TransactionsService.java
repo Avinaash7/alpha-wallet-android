@@ -2,6 +2,7 @@ package com.alphawallet.app.service;
 
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.Pair;
 
@@ -400,6 +401,7 @@ public class TransactionsService
             EthBlock ethBlock =
                     web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).send();
             String blockValStr = ethBlock.getBlock().getNumberRaw();
+            Log.i("AvinaashBlockVal",blockValStr);
             if (!TextUtils.isEmpty(blockValStr) && blockValStr.length() > 2)
                 return Numeric.toBigInt(blockValStr);
             else return currentBlocks.get(chainId, new CurrentBlockTime(BigInteger.ZERO)).blockNumber;
@@ -633,6 +635,7 @@ public class TransactionsService
     {
         if (txData.second > 0L)
         {
+
             return new Transaction(txData.first.getResult(), chainId,
                     checkTransactionReceipt(txData.first.getResult().getHash(), chainId), txData.second);
         }
@@ -657,7 +660,7 @@ public class TransactionsService
             currentBlock = new CurrentBlockTime(fetchCurrentBlock(chainId).blockingGet());
             currentBlocks.put(chainId, currentBlock);
         }
-
+        Log.i("AvinaashNumber", String.valueOf(currentBlock.blockNumber));
         return currentBlock.blockNumber;
     }
 
@@ -696,6 +699,8 @@ public class TransactionsService
     private boolean checkTransactionReceipt(String txHash, long chainId) throws IOException
     {
         final Web3j web3j = TokenRepository.getWeb3jService(chainId);
+        Log.i("AvinaashReceipt", String.valueOf(web3j.ethGetTransactionReceipt(txHash)
+                .send().getResult().isStatusOK()));
         return web3j.ethGetTransactionReceipt(txHash)
                 .send().getResult().isStatusOK();
     }
