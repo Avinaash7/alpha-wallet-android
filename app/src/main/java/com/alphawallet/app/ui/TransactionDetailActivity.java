@@ -583,7 +583,7 @@ public class TransactionDetailActivity extends BaseActivity implements StandardF
     }
 
     @Override
-    public void onBackPressed()
+    public void handleBackPressed()
     {
         if (isFromNotification)
         {
@@ -591,7 +591,7 @@ public class TransactionDetailActivity extends BaseActivity implements StandardF
         }
         else
         {
-            super.onBackPressed();
+            finish();
         }
     }
 }

@@ -103,7 +103,6 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
 {
     @Inject
     AWWalletConnectClient awWalletConnectClient;
-
     public static final int RC_ASSET_EXTERNAL_WRITE_PERM = 223;
     public static final int RC_ASSET_NOTIFICATION_PERM = 224;
     public static final int DAPP_BARCODE_READER_REQUEST_CODE = 1;
@@ -270,7 +269,7 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
         });
 
         initBottomNavigation();
-        dissableDisplayHomeAsUp();
+        disableDisplayHomeAsUp();
 
         viewModel.error().observe(this, this::onError);
         viewModel.walletName().observe(this, this::onWalletName);
@@ -326,7 +325,7 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
 
         if (data != null)
         {
-            checkIntents(data.toString(), intent);
+            handleDeeplink(data.toString(), intent);
         }
 
         Intent i = new Intent(this, PriceAlertsService.class);
@@ -460,6 +459,13 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
                     hideDialog();
                     qrCodeScanner.launch(options);
                 });
+
+        getSupportFragmentManager()
+                .setFragmentResultListener(C.AWALLET_CODE, this, (requestKey, b) ->
+                {
+                    String code = b.getString(C.AWALLET_CODE);
+                    handleDeeplink(code, null);
+                });
     }
 
     //TODO: Implement all QR scan using this method
@@ -483,7 +489,7 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
 
         if (data != null)
         {
-            checkIntents(data.toString(), startIntent);
+            handleDeeplink(data.toString(), startIntent);
         }
     }
 
@@ -610,7 +616,7 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
     {
         super.onRestoreInstanceState(savedInstanceState);
         int oldPage = savedInstanceState.getInt(STORED_PAGE);
@@ -1102,9 +1108,8 @@ public class HomeActivity extends BaseNavigationActivity implements View.OnClick
         inset.show(WindowInsetsCompat.Type.statusBars() | WindowInsetsCompat.Type.navigationBars());
     }
 
-    private void checkIntents(String importData, Intent startIntent)
+    private void handleDeeplink(String importData, Intent startIntent)
     {
-        //decode deeplink and handle
         DeepLinkRequest request = DeepLinkService.parseIntent(importData, startIntent);
         switch (request.type)
         {
