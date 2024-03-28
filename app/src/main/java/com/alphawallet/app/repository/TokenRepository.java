@@ -8,6 +8,7 @@ import static java.util.Arrays.asList;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
 import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
 import java.io.IOException;
@@ -69,6 +71,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -1005,27 +1008,51 @@ public class TokenRepository implements TokenRepositoryType {
     private String callSmartContractFunction(
             Function function, String contractAddress, NetworkInfo network, Wallet wallet) throws Exception
     {
+        if (network.chainId == 314)
+        {
+            Log.i("callSmartContractFunction","Inside");
+        }
         try
         {
             String encodedFunction = FunctionEncoder.encode(function);
+            org.web3j.protocol.core.methods.request.Transaction transaction;
 
-            org.web3j.protocol.core.methods.request.Transaction transaction
-                    = createEthCallTransaction(wallet.address, contractAddress, encodedFunction);
+            if (network.chainId == 314)
+            {
+                Log.i("callSmartContractFunctionDataFrom",wallet.address);
+                Log.i("callSmartContractFunctionDataContract",contractAddress);
+                // 0x8c1de022C0905C968ab73217A11B4AdF5cEEa410 Non Zero Account
+                transaction = createEthCallTransaction("0x8c1de022C0905C968ab73217A11B4AdF5cEEa410", contractAddress, encodedFunction);
+            } else {
+                transaction = createEthCallTransaction(wallet.address, contractAddress, encodedFunction);
+            }
             EthCall response = getService(network.chainId).ethCall(transaction, DefaultBlockParameterName.LATEST).send();
 
             if (response.hasError() && response.getError().getMessage().equals("execution reverted"))
             {
+                if (network.chainId == 314) {
+                    Log.i("callSmartContractFunctionError",response.getError().getMessage());
+                }
+
                 //contract does not have this function
                 //TODO: Handle this
                 return null;
             }
             else
             {
+                if (network.chainId == 314) {
+                Log.i("callSmartContractFunctionError",response.getValue());
+                        }
+
                 return response.getValue();
             }
         }
-        catch (InterruptedIOException|UnknownHostException|JsonParseException e)
+        catch (JsonParseException e)
         {
+            if (network.chainId == 314)
+            {
+                Log.i("callSmartContractFunctionException",e.getMessage());
+            }
             //expected to happen when user switches wallets
             return "";
         }
@@ -1152,6 +1179,10 @@ public class TokenRepository implements TokenRepositoryType {
 
     private Single<TokenInfo> setupTokensFromLocal(String address, long chainId)
     {
+        if (chainId == 314){
+            Log.i("setupTokensFromLocal","Inside");
+        }
+
         return Single.fromCallable(() -> {
             NetworkInfo network = ethereumNetworkRepository.getNetworkByChain(chainId);
             return new TokenInfo(
@@ -1216,23 +1247,23 @@ public class TokenRepository implements TokenRepositoryType {
             NetworkInfo network = ethereumNetworkRepository.getNetworkByChain(tokenInfo.chainId);
             try
             {
-                if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_BALANCES_721_TICKET), Boolean.TRUE))
+                if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_BALANCES_721_TICKET), Boolean.TRUE)))
                     returnType = ContractType.ERC721_TICKET;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC721_ENUMERABLE), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC721_ENUMERABLE), Boolean.TRUE)))
                     returnType = ContractType.ERC721_ENUMERABLE;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_OFFICIAL_ERC721), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_OFFICIAL_ERC721), Boolean.TRUE)))
                     returnType = ContractType.ERC721;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC20), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC20), Boolean.TRUE)))
                     returnType = ContractType.ERC20;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC404), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC404), Boolean.TRUE)))
                     returnType = ContractType.ERC20;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_SUPERRARE), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_SUPERRARE), Boolean.TRUE)))
                     returnType = ContractType.ERC721;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC1155), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_ERC1155), Boolean.TRUE)))
                     returnType = ContractType.ERC1155;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_OLD_ERC721), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_OLD_ERC721), Boolean.TRUE)))
                     returnType = ContractType.ERC721_LEGACY;
-                else if (getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_CRYPTOKITTIES), Boolean.TRUE))
+                else if (Boolean.TRUE.equals(getContractData(network, tokenInfo.address, supportsInterface(INTERFACE_CRYPTOKITTIES), Boolean.TRUE)))
                     returnType = ContractType.ERC721_LEGACY;
                 else
                     returnType = ContractType.OTHER;
@@ -1254,14 +1285,27 @@ public class TokenRepository implements TokenRepositoryType {
                 catch (Exception e) { isERC875 = false; }
                 try
                 {
+
+
                     responseValue = callSmartContractFunction(balanceOf(currentAddress), tokenInfo.address, network, new Wallet(currentAddress));
+//                    if (tokenInfo.chainId == 314) {
+//                        Log.i("CallBalance",currentAddress);
+//                        Log.i("CallChain", String.valueOf(tokenInfo.chainId));
+//                        Log.i("CallAddress",tokenInfo.address);
+//                        Log.i("CallResponse",responseValue);
+//                    }
+
                 }
                 catch (Exception e) { responseValue = ""; }
 
                 returnType = findContractTypeFromResponse(responseValue, isERC875);
             }
+            if (tokenInfo.chainId == 314) {
+                return ContractType.ERC20;
+            } else {
+                return returnType;
+            }
 
-            return returnType;
         });
     }
 

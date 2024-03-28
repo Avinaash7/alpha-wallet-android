@@ -1,6 +1,7 @@
 package com.alphawallet.app.entity.tokens;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alphawallet.app.entity.ContractType;
 import com.alphawallet.app.entity.EasAttestation;
@@ -152,8 +153,15 @@ public class TokenFactory
 
     public Token createToken(TokenInfo tokenInfo, ContractType type, String networkName)
     {
+//        Log.i("Creating","createToken");
+//        Log.i("CreatingAddress",tokenInfo.address);
+//        Log.i("CreatingChainId", String.valueOf(tokenInfo.chainId));
+//        Log.i("CreatingName", String.valueOf(tokenInfo.name));
         Token thisToken;
         long currentTime = System.currentTimeMillis();
+//        if (tokenInfo.chainId == 314) {
+//            type = ContractType.ERC20;
+//        }
         switch (type)
         {
             case ERC875:

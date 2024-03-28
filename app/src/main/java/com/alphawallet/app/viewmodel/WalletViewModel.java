@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
@@ -72,6 +73,7 @@ import org.web3j.crypto.Keys;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -232,7 +234,7 @@ public class WalletViewModel extends BaseViewModel
     }
 
     private void onTokenMetas(TokenCardMeta[] metaTokens)
-    {
+    {   Log.i("onTokenMetas", Arrays.toString(metaTokens));
         lastTokenFetchTime = System.currentTimeMillis();
         tokens.postValue(metaTokens);
         tokensService.updateTickers();

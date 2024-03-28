@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -61,7 +62,7 @@ public class AddTokenViewModel extends BaseViewModel
 
     private boolean foundNetwork;
     private int networkCount;
-    private long primaryChainId = 1;
+    private long primaryChainId = 314;
     private final List<Token> discoveredTokenList = new ArrayList<>();
     private final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -183,6 +184,23 @@ public class AddTokenViewModel extends BaseViewModel
 
     private void onTokensSetup(TokenInfo info)
     {
+        if (info.chainId == 1) {
+            Log.i("onTokensSetupChain", String.valueOf(info.chainId));
+            Log.i("onTokensSetupAddress", String.valueOf(info.address));
+            Log.i("onTokensSetupName", String.valueOf(info.name));
+            Log.i("onTokensSetupDecimals", String.valueOf(info.decimals));
+
+        }
+
+//        if (info.chainId == 314) {
+//            Log.i("onTokensSetupChain", String.valueOf(info.chainId));
+//            Log.i("onTokensSetupAddress", String.valueOf(info.address));
+//            Log.i("onTokensSetupName", String.valueOf(info.name));
+//            Log.i("onTokensSetupDecimals", String.valueOf(info.decimals));
+//
+//        }
+
+
         disposable = tokensService.addToken(info, wallet.getValue().address)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -190,14 +208,14 @@ public class AddTokenViewModel extends BaseViewModel
     }
 
     private void finaliseToken(Token token)
-    {
+    {   Log.i("Checking","finaliseToken");
         checkNetworkCount();
         discoveredTokenList.add(token);
         onToken.postValue(token);
     }
 
     private void tokenTypeError(Throwable throwable, TokenInfo data)
-    {
+    {   Log.i("Checking","tokenTypeError");
         checkNetworkCount();
         Token badToken = new Token(data, BigDecimal.ZERO, 0, "", ContractType.NOT_SET);
         tokenType.postValue(badToken);
@@ -266,9 +284,13 @@ public class AddTokenViewModel extends BaseViewModel
             Disposable d = fetchTransactionsInteract.queryInterfaceSpec(tokenInfo)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(type -> testNetworkResult(tokenInfo, type), this::onTestError);
+                    .subscribe(type -> {
+                            testNetworkResult(tokenInfo, type);
+
+                    }, this::onTestError);
 
             scanThreads.add(d);
+            //break; // remove
         }
 
         handler.postDelayed(this::stopScan, 60 * DateUtils.SECOND_IN_MILLIS);
@@ -278,6 +300,26 @@ public class AddTokenViewModel extends BaseViewModel
     {
         if (type != ContractType.OTHER)
         {
+
+//            if(info.chainId == 1) {
+//            Log.i("testNetworkResultaddress", String.valueOf(info.address));
+//            Log.i("testNetworkResultname", String.valueOf(info.name));
+//            Log.i("testNetworkResultsymbol", String.valueOf(info.symbol));
+//            Log.i("testNetworkResultdecimals", String.valueOf(info.decimals));
+//            Log.i("testNetworkResultChain", String.valueOf(info.chainId));
+//            Log.i("testNetworkResultisEnabled", String.valueOf(info.isEnabled));
+//            Log.i("testNetworkResultType", String.valueOf(type));
+//        }
+            if(info.chainId == 314) {
+                Log.i("testNetworkResultaddress", String.valueOf(info.address));
+                Log.i("testNetworkResultname", String.valueOf(info.name));
+                Log.i("testNetworkResultsymbol", String.valueOf(info.symbol));
+                Log.i("testNetworkResultdecimals", String.valueOf(info.decimals));
+                Log.i("testNetworkResultChain", String.valueOf(info.chainId));
+                Log.i("testNetworkResultisEnabled", String.valueOf(info.isEnabled));
+                Log.i("testNetworkResultType", String.valueOf(type));
+            }
+
             foundNetwork = true;
             disposable = tokensService
                     .update(info.address, info.chainId, type)

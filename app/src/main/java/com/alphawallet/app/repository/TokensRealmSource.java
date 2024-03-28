@@ -5,6 +5,7 @@ import static com.alphawallet.app.service.TokensService.EXPIRED_CONTRACT;
 
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.Pair;
 
 import com.alphawallet.app.entity.ContractType;
@@ -1022,7 +1023,7 @@ public class TokensRealmSource implements TokenLocalSource
                 RealmResults<RealmToken> realmItems = realm.where(RealmToken.class).sort("addedTime", Sort.ASCENDING).beginGroup().equalTo("isEnabled", true).or().like("address", wallet.address + "*", Case.INSENSITIVE).endGroup().like("address", ADDRESS_FORMAT).findAll();
 
                 for (RealmToken t : realmItems)
-                {
+                {   Log.i("fetchTokenMetas", String.valueOf(t));
                     if (networkFilters.size() > 0 && !networkFilters.contains(t.getChainId()))
                         continue;
                     if (t.getContractType() == ContractType.ETHEREUM && !(t.getTokenAddress().equalsIgnoreCase(wallet.address)))
