@@ -8,6 +8,7 @@
         android:id="@+id/title"
         style="@style/Aw.Typography.Title.Large.Bold"
         android:layout_width="match_parent"
+            android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_16"
         android:layout_marginTop="@dimen/standard_16"

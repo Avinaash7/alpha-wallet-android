@@ -82,7 +82,6 @@
     {"address": "0xB4272071eCAdd69d933AdcD19cA99fe80664fc08", "name": "XCHF",   "isPopular": true, "network": 1},
     {"address": "0xa45Eaf6d2Ce4d1a67381d5588B865457023c23A0", "name": "XIO",    "isPopular": true, "network": 1},
     {"address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498", "name": "ZRX",    "isPopular": true, "network": 1},
-      {"address": "0x79AbfF86426723ff5A81710E310c7035C2C32E9F", "name": "OV", "isPopular": true, "network": 314},
 
     {"address": "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", "name": "", "isPopular": true, "network": 1},
     {"address": "0xf230b790e05390fc8295f4d3f60332c93bed42e2", "name": "", "isPopular": true, "network": 1},

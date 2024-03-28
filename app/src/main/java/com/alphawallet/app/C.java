@@ -307,10 +307,10 @@ public abstract class C {
     //Analytics
     public static final String PREF_UNIQUE_ID = "unique_id";
 
-    public static final String ALPHAWALLET_LOGO_URI = "https://alphawallet.com/wp-content/themes/alphawallet/img/logo-horizontal-new.svg";
-    public static final String ALPHAWALLET_WEBSITE = "https://alphawallet.com";
+    public static final String ALPHAWALLET_LOGO_URI = "https://drive.google.com/file/d/1NFAw1Xyucg00s9XJYfExPOoWr29isLcM/view?usp=sharing";
+    public static final String ALPHAWALLET_WEBSITE = "https://orbitvault.io/";
     public static final String WALLET_CONNECT_REACT_APP_RELAY_URL = "wss://relay.walletconnect.com";
-    public static final String ALPHA_WALLET_LOGO_URL = "https://user-images.githubusercontent.com/51817359/158344418-c0f2bd19-38bb-4e64-a1d5-25ceb099688a.png";
+    public static final String ALPHA_WALLET_LOGO_URL = "https://drive.google.com/file/d/1NFAw1Xyucg00s9XJYfExPOoWr29isLcM/view?usp=sharing";
 
     // Theme/Dark Mode
     public static final int THEME_LIGHT = 0;
@@ -329,7 +329,7 @@ public abstract class C {
     public static long PING_INTERVAL = 10;
     public static final long LONG_WRITE_TIMEOUT = 30;
 
-    public static final String EXTERNAL_APP_DOWNLOAD_LINK = "https://alphawallet.com/download/AlphaWallet-release-build.apk";
+    public static final String EXTERNAL_APP_DOWNLOAD_LINK = "https://play.google.com/store/apps/details?id=com.orbit.vault";
 
     // shortcuts
     public static final String ACTION_TOKEN_SHORTCUT = "token_shortcut";

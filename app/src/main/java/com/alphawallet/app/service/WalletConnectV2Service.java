@@ -44,7 +44,7 @@ public class WalletConnectV2Service extends Service
         return new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.notify_wallet_connect_title))
                 .setContentText(getString(R.string.notify_wallet_connect_content))
-                .setSmallIcon(R.drawable.ic_logo)
+                .setSmallIcon(R.drawable.orbitlogo)
                 .setContentIntent(pendingIntent)
                 .build();
     }
